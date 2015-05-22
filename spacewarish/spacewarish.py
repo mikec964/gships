@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import pygame
 from pygame.locals import *
 import os, sys
@@ -8,8 +9,14 @@ class Ship(object):
     """A ship has a location and heading"""
 
     def __init__(self, base_image, start_x, start_y, start_heading):
+        # read ../images/players.csv
+        datadir = 'images'
+        filename = base_image + '.jpg'
+        # Use dirname(__file__) so this runs even when called from ../tests
+        filepath = os.path.join(os.path.dirname(__file__), os.pardir, datadir, filename)
+
         try:
-            self.image = pygame.image.load(os.path.join("images", base_image + '.jpg'))
+            self.image = pygame.image.load(filepath)
         except:
             pygame.quit()
             sys.exit()

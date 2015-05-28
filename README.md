@@ -17,9 +17,27 @@ practices including test-driven development.
 
 | key   | action        |
 |-------|---------------|
-| d     | rotate left   |
-| f     | rotate right  |
-| j     | thrust        |
-| k     | fire          |
-| n     | hyperspace    |
+| J     | rotate left   |
+| L     | rotate right  |
+| K     | thrust        |
+| I     | fire          |
 
+## Ideas for future systems:
+
+### Starship features
+
+* Heading (rotation): With or without gyros
+* Heading: Speed of rotation
+* Thrust: Power
+* Missiles
+* Guided missiles
+* Hyperspace
+* Shields
+    
+### Game features
+
+* Starfield
+* Sun (gravity)
+* Black hole
+* Wrap, bounce, stop
+* Cloud area which adds drag

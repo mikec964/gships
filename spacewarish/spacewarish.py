@@ -6,6 +6,20 @@ from pygame.locals import *
 import starship
 
 
+def terminate():
+    pygame.quit()
+    sys.exit()
+
+
+def checkForQuit():
+    for event in pygame.event.get(QUIT):  # get all the QUIT events
+        terminate() # terminate if any QUIT events are present
+    for event in pygame.event.get(KEYUP):  # get all the KEYUP events
+        if event.key == K_ESCAPE:
+            terminate()  # terminate if the KEYUP event was for the Esc key
+        pygame.event.post(event) # put the other KEYUP event objects back
+
+
 def main():
     pygame.init()
     WIDTH, HEIGHT = 640, 480
@@ -20,19 +34,22 @@ def main():
 
     pirate = starship.Ship('pirate ship0', 100, 100, 90)
 
-    while True:
+    while True:  # game loop
         screen.fill(WHITE)
 
         #PROCESSES
+        checkForQuit()
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-            elif event.type == KEYUP:
-                # check if the user pressed a key to slide a tile
-                if event.key in (K_UP, K_i):
+            if event.type == KEYUP:
+                print(event.key)
+                if event.key in (K_ESCAPE):
+                    terminate()
+                if event.key in (K_k):
                     pirate.accelerate()
+                if event.key in (K_j):
+                    pirate.rotate_left(5)
+                if event.key in (K_l):
+                    pirate.rotate_right(5)
 
         #LOGIC
         pirate.move()

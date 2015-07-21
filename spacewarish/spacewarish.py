@@ -11,15 +11,6 @@ def terminate():
     sys.exit()
 
 
-def checkForQuit():
-    for event in pygame.event.get(QUIT):  # get all the QUIT events
-        terminate() # terminate if any QUIT events are present
-    for event in pygame.event.get(KEYUP):  # get all the KEYUP events
-        if event.key == K_ESCAPE:
-            terminate()  # terminate if the KEYUP event was for the Esc key
-        pygame.event.post(event) # put the other KEYUP event objects back
-
-
 def main():
     pygame.init()
     WIDTH, HEIGHT = 640, 480
@@ -34,32 +25,36 @@ def main():
 
     pirate = starship.Ship('pirate ship0', 100, 100, 90)
 
+    orig_keys = pygame.key.get_pressed()
+    print(orig_keys)
+
     while True:  # game loop
         screen.fill(WHITE)
 
         #PROCESSES
-        checkForQuit()
+        key_state = pygame.key.get_pressed()
+        if orig_keys != key_state:
+            print(key_state)
+        if key_state[K_k]:
+            pirate.accelerate()
+            print('accelerate. ')
+        elif key_state[K_j]:
+            pirate_rotate_left(5)
+            print('left. ')
+        elif key_state[K_l]:
+            pirate_rotate_right(5)
+            print('right. ')
+
         for event in pygame.event.get():
-            if event.type == KEYUP:
-                print(event.key)
-                if event.key in (K_ESCAPE):
-                    terminate()
-                if event.key in (K_k):
-                    pirate.accelerate()
-                if event.key in (K_j):
-                    pirate.rotate_left(5)
-                if event.key in (K_l):
-                    pirate.rotate_right(5)
+            if event.type == QUIT:
+                terminate()
+        pygame.event.pump()
 
         #LOGIC
-        pirate.move()
-        # if pirate.speed > 1:
-        #     pirate.speed -= 1       # all ships have drag!
-        # else:
-        #     pirate.speed = 0
+        # pirate.move()
 
         #DRAW
-        screen.blit(pirate.image, (pirate.x, pirate.y))
+        # screen.blit(pirate.image, (pirate.x, pirate.y))
 
         #DRAW
         pygame.display.update()

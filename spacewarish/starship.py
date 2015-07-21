@@ -4,7 +4,7 @@ import pygame
 from pygame.locals import *
 
 
-class Ship(object):
+class Ship():
     """A ship has a location and heading"""
 
     def __init__(self, base_image, start_x, start_y, start_heading):
